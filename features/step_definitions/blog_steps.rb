@@ -29,6 +29,10 @@ Given /(.*) has comment "(.*)"/ do |article, content|
   c = Comment.new(article: a, body: content, author: "user1")
 end
 
+When /I follow the "(.*)" link for "(.*)"/ do |linkname, article|
+  with_scope("/tr[td[a[text() = '#{article}']]]") {click_link "#{linkname}"}
+end
+
 Then /the title of (.*) should be "(.*)"/ do |article, title|
   Article.find_by_name(article).title.should == title
 end
