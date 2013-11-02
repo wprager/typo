@@ -140,6 +140,7 @@ class Admin::ContentController < Admin::BaseController
   def real_action_for(action); { 'add' => :<<, 'remove' => :delete}[action]; end
 
   def new_or_edit
+    @isAdmin = current_user.admin?
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
@@ -240,4 +241,12 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
+  def merge
+    @article1 = Article.find(params[:id1])
+    @article2 = Article.find(params[:id2])
+    # routes: match '/content/:id1/merge/:id2', to: 'admin/content#merge'
+    @article1.merge_with(@article2.id)
+  end
+
 end

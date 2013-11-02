@@ -148,12 +148,19 @@
     </ul>
   </div>    
 
-  <div class='' id='merge_articles'>
+  <% if not @isAdmin %>
+    <style>
+      #merge_articles { visibility: hidden }
+    </style>
+  <% end %>
+
+  <div id='merge_articles'>
     <h4><%= _("Merge Articles") %></h4>
-    <div class='class'>
+    <div>
       Article ID <%= text_field 'article', 'keywords', {id: 'merge_with'}%>
     </div>
-    <input id='merge_button' type='submit' value='Merge' class='btn'>
+    <a class='btn' href='/admin'>Merge</a>
+    <!--<input id='merge_button' type='submit' value='Merge' class='btn'>-->
   </div>
 
   </div>

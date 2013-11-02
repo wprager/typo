@@ -466,4 +466,13 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
+  def merge_with(other_article_id)
+    a = Article.find(other_article_id)
+    # this.body += a.body
+    # a.comments.update_all(id: this.id)
+    # this.save!
+    # a.delete
+  end
+
 end

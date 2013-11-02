@@ -18,7 +18,7 @@ Scenario: When articles are merged, the merged article should contain the text o
   And I follow "All Articles"
   And I follow "Edit"
   And I fill in "merge_with" with "2"
-  And I press "Merge"
+  And I follow "Merge"
   Then I should be on the admin content page
 #  And the title of Foobar1 should be "Foobar1"
 #  And the author of Foobar1 should be "admin1"

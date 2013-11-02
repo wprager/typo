@@ -13,5 +13,3 @@ Scenario: A non-admin cannot merge two articles
   And I follow "Edit"
   Then I should not see "Merge"
 
-#name: admin
-#pw: zRMvmjx
