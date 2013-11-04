@@ -113,6 +113,14 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge
+    @article1 = Article.find(params[:id])
+    @article2 = Article.find(params[:merge_with])
+    @article1.merge_with(@article2.id)
+    # routes: match '/content/:id1/merge/:id2', to: 'admin/content#merge'
+    redirect_to "/admin/content/edit/#{params[:id]}"
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -240,13 +248,6 @@ class Admin::ContentController < Admin::BaseController
 
   def setup_resources
     @resources = Resource.by_created_at
-  end
-
-  def merge
-    @article1 = Article.find(params[:id1])
-    @article2 = Article.find(params[:id2])
-    # routes: match '/content/:id1/merge/:id2', to: 'admin/content#merge'
-    @article1.merge_with(@article2.id)
   end
 
 end
