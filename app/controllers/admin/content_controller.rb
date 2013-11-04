@@ -114,11 +114,16 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge
-    @article1 = Article.find(params[:id])
-    @article2 = Article.find(params[:merge_with])
-    @article1.merge_with(@article2.id)
-    # routes: match '/content/:id1/merge/:id2', to: 'admin/content#merge'
-    redirect_to "/admin/content/edit/#{params[:id]}"
+    if not current_user.admin?
+      redirect_to '/admin/content/'
+      flash[:notice] = 'That action is not allowed for non-admins'
+    else
+      @article1 = Article.find(params[:id])
+      @article2 = Article.find(params[:merge_with])
+      @article1.merge_with(@article2.id)
+      # routes: match '/content/:id1/merge/:id2', to: 'admin/content#merge'
+      redirect_to "/admin/content/edit/#{params[:id]}"
+    end
   end
 
   protected
