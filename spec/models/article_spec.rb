@@ -26,6 +26,19 @@ describe Article do
     assert_equal [:body, :extended], a.content_fields
   end
 
+  describe '#merge_with' do
+    it 'should merge 2 articles' do
+      a1 = Factory(:article, id: 1, title: 'blah', body:'asdf')
+      a2 = Factory(:article, id: 2, title: 'okay', body: 'abcd')
+      a2.add_comment(body: 'aaaa')
+      a1.merge_with(a2.id)
+      a1.body.should == 'asdfabcd'
+      a1.title.should == 'blah'
+      a1.comments[0].body.should == 'aaaa'
+      a2.should_receive(:delete)
+    end
+  end
+
   describe "#permalink_url" do
     describe "with hostname" do
       subject { Article.new(:permalink => 'article-3', :published_at => Time.new(2004, 6, 1)).permalink_url(anchor=nil, only_path=false) }

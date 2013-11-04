@@ -622,6 +622,13 @@ describe Admin::ContentController do
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'
 
+    describe 'merge action' do
+      it 'should not let non-admins merge' do
+        post :merge, id: @article.id
+        response.should redirect_to('/admin/content/')
+      end
+    end
+
     describe 'edit action' do
 
       it "should redirect if edit article doesn't his" do
