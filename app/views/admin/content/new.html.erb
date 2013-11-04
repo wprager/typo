@@ -2,6 +2,7 @@
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
 
+<% if @isAdmin %>
 <div id='merge_articles'>
   <%= form_for(@article, url: "/admin/content/#{@article.id}/merge") do |f| %>
     <h4><%= _("Merge Articles") %></h4>
@@ -10,3 +11,4 @@
     <%= submit_tag('Merge') %>
   <% end %>
 </div>
+<% end %>
